@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * Create user
@@ -8,16 +8,16 @@
  * returns User
  **/
 
-exports.createUser = function (body) {
-  return new Promise(function (resolve, reject) {
+exports.createUser = function(body) {
+  return new Promise(function(resolve, reject) {
     var errorFlag = false;
     var errorsDetailsArray = [];
     const types = {
-      STRING: 'string',
-      NUMBER: 'number',
-      BOOLEAN: 'boolean',
-      OBJECT: 'object'
-    }
+      STRING: "string",
+      NUMBER: "number",
+      BOOLEAN: "boolean",
+      OBJECT: "object"
+    };
 
     for (var i = 0; i < Object.keys(body).length; i++) {
       var key = Object.keys(body)[i];
@@ -29,19 +29,39 @@ exports.createUser = function (body) {
         case "email":
         case "gender":
         case "signUp":
-          errorsDetailsArray = handleComparison(key, value, types.STRING, errorsDetailsArray)
+          errorsDetailsArray = handleComparison(
+            key,
+            value,
+            types.STRING,
+            errorsDetailsArray
+          );
           break;
         case "age":
-          errorsDetailsArray = handleComparison(key, value, types.NUMBER, errorsDetailsArray)
+          errorsDetailsArray = handleComparison(
+            key,
+            value,
+            types.NUMBER,
+            errorsDetailsArray
+          );
           break;
         case "terms":
-          errorsDetailsArray = handleComparison(key, value, types.BOOLEAN, errorsDetailsArray)
+          errorsDetailsArray = handleComparison(
+            key,
+            value,
+            types.BOOLEAN,
+            errorsDetailsArray
+          );
           break;
         case "hobbies":
-          errorsDetailsArray = handleComparison(key, value, types.OBJECT, errorsDetailsArray)
+          errorsDetailsArray = handleComparison(
+            key,
+            value,
+            types.OBJECT,
+            errorsDetailsArray
+          );
           break;
         default:
-          errorsDetailsArray += `${key} is not part of the schema for a user. Ensure the data you pass meets the new user schema exactly.`
+          errorsDetailsArray += `${key} is not part of the schema for a user. Ensure the data you pass meets the new user schema exactly.`;
           break;
       }
     }
@@ -51,16 +71,18 @@ exports.createUser = function (body) {
     }
 
     if (!errorFlag) {
-      resolve("successfullly created new object: " + JSON.stringify(body, null, 2));
+      resolve(
+        "successfullly created new object: " + JSON.stringify(body, null, 2)
+      );
     } else {
       reject(errorsDetailsArray);
     }
   });
-}
+};
 
 function handleComparison(key, value, type, errorsDetailsArray) {
   if (!isTypeOf(value, type)) {
-    errorsDetailsArray += `ERROR: ${key} has the value '${value}' but it should be of type ${type}. Ensure data meets the new user schema exactly.\n`
+    errorsDetailsArray += `ERROR: ${key} has the value '${value}' but it should be of type ${type}. Ensure data meets the new user schema exactly.\n`;
   }
   return errorsDetailsArray;
 }
@@ -68,8 +90,7 @@ function handleComparison(key, value, type, errorsDetailsArray) {
 function isTypeOf(value, type) {
   if (typeof value === type) {
     return true;
-  }
-  else {
+  } else {
     return false;
   }
 }
@@ -81,31 +102,31 @@ function isTypeOf(value, type) {
  * username String The name that needs to be deleted
  * no response value expected for this operation
  **/
-exports.deleteUser = function (username) {
-  return new Promise(function (resolve, reject) {
+exports.deleteUser = function(username) {
+  return new Promise(function(resolve, reject) {
     resolve();
   });
-}
+};
 
 /**
  * Get user by user name
- * 
  *
- * username String The name that needs to be fetched. Use user1 for testing. 
+ *
+ * username String The name that needs to be fetched. Use user1 for testing.
  * returns User
  **/
-exports.getUserByName = function (username) {
-  return new Promise(function (resolve, reject) {
+exports.getUserByName = function(username) {
+  return new Promise(function(resolve, reject) {
     var examples = {};
-    examples['application/json'] = {
-      "firstName": "firstName",
-      "lastName": "lastName",
-      "gender": "gender",
-      "terms": true,
-      "hobbies": "{}",
-      "signUp": "signUp",
-      "email": "email",
-      "age": 0.80082819046101150206595775671303272247314453125
+    examples["application/json"] = {
+      firstName: "firstName",
+      lastName: "lastName",
+      gender: "gender",
+      terms: true,
+      hobbies: "{}",
+      signUp: "signUp",
+      email: "email",
+      age: 0.80082819046101150206595775671303272247314453125
     };
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -113,39 +134,39 @@ exports.getUserByName = function (username) {
       resolve();
     }
   });
-}
+};
 
 /**
  * Logs user into the system
- * 
+ *
  *
  * username String The user name for login
  * password String The password for login in clear text
  * returns String
  **/
-exports.loginUser = function (username, password) {
-  return new Promise(function (resolve, reject) {
+exports.loginUser = function(username, password) {
+  return new Promise(function(resolve, reject) {
     var examples = {};
-    examples['application/json'] = "";
+    examples["application/json"] = "";
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
       resolve();
     }
   });
-}
+};
 
 /**
  * Logs out current logged in user session
- * 
+ *
  *
  * no response value expected for this operation
  **/
-exports.logoutUser = function () {
-  return new Promise(function (resolve, reject) {
+exports.logoutUser = function() {
+  return new Promise(function(resolve, reject) {
     resolve();
   });
-}
+};
 
 /**
  * Updated user
@@ -155,8 +176,8 @@ exports.logoutUser = function () {
  * body User Updated user object
  * no response value expected for this operation
  **/
-exports.updateUser = function (username, body) {
-  return new Promise(function (resolve, reject) {
+exports.updateUser = function(username, body) {
+  return new Promise(function(resolve, reject) {
     resolve();
   });
-}
+};
